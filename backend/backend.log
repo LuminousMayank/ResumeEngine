@@ -1,0 +1,57 @@
+/Users/mayankbehera/.gemini/antigravity/scratch/caarya-job-fit-engine/backend/app/services/resume_parser.py:9: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+INFO:     Started server process [93612]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:59513 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59551 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59551 - "GET /api/results/2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50898 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50898 - "GET /api/results/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50898 - "GET /api/results/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50898 - "GET /api/results/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50898 - "GET /api/results/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50898 - "GET /api/results/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50898 - "GET /api/results/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50898 - "GET /api/results/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50898 - "GET /api/results/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/results/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /api/results/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /api/results/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /api/results/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /api/results/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /api/results/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /api/results/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /api/results/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /api/results/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /api/results/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /api/results/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /api/results/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54642 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54642 - "GET /api/results/6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54642 - "GET /api/results/6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54642 - "GET /api/results/6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54642 - "GET /api/results/6 HTTP/1.1" 200 OK

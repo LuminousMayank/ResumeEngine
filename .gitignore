@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.next/
+out/
+.env
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+caarya_job_fit.db
+/backend/data/faiss_index/
+/backend/data/uploads/
+.DS_Store
