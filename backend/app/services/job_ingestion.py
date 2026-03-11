@@ -70,6 +70,7 @@ def ingest_jobs_to_db(db: Session) -> int:
             # Update existing record
             existing.title = job_data.get("title", existing.title)
             existing.company = job_data.get("company", existing.company)
+            existing.domain = job_data.get("domain", existing.domain)
             existing.required_skills = job_data.get("required_skills", [])
             existing.preferred_skills = job_data.get("preferred_skills", [])
             existing.eligible_degrees = job_data.get("eligible_degrees", [])
@@ -82,6 +83,7 @@ def ingest_jobs_to_db(db: Session) -> int:
                 id=job_id,
                 title=job_data.get("title", ""),
                 company=job_data.get("company", ""),
+                domain=job_data.get("domain", ""),
                 required_skills=job_data.get("required_skills", []),
                 preferred_skills=job_data.get("preferred_skills", []),
                 eligible_degrees=job_data.get("eligible_degrees", []),

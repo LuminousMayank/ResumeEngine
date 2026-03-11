@@ -54,6 +54,7 @@ def list_jobs(db: Session = Depends(get_db)):
             job_id=j.id,
             title=j.title,
             company=j.company,
+            domain=j.domain or "",
             required_skills=j.required_skills or [],
             preferred_skills=j.preferred_skills or [],
             eligible_degrees=j.eligible_degrees or [],
@@ -215,6 +216,8 @@ async def analyze_resume(
     profile = CandidateProfile(
         filename=filename,
         raw_text=raw_text,
+        candidate_name=parsed.get("candidate_name"),
+        domain=parsed.get("domain"),
         skills=parsed.get("skills", []),
         projects=parsed.get("projects", []),
         internships=parsed.get("internships", 0),
@@ -232,6 +235,8 @@ async def analyze_resume(
         "message": "Resume uploaded and parsed. Analysis is running in the background.",
         "profile_id": profile.id,
         "profile": {
+            "candidate_name": profile.candidate_name,
+            "domain": profile.domain,
             "skills": profile.skills,
             "projects": profile.projects,
             "internships": profile.internships,
@@ -261,6 +266,8 @@ def get_results(profile_id: int, db: Session = Depends(get_db)):
     profile_out = CandidateProfileOut(
         id=profile.id,
         filename=profile.filename or "",
+        candidate_name=profile.candidate_name or "",
+        domain=profile.domain or "",
         skills=profile.skills or [],
         projects=profile.projects or [],
         internships=profile.internships or 0,
@@ -275,6 +282,7 @@ def get_results(profile_id: int, db: Session = Depends(get_db)):
             job_id=job.id,
             title=job.title,
             company=job.company,
+            domain=job.domain or "",
             required_skills=job.required_skills or [],
             preferred_skills=job.preferred_skills or [],
             eligible_degrees=job.eligible_degrees or [],

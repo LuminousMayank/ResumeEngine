@@ -11,6 +11,7 @@ class Job(Base):
     id = Column(String, primary_key=True)  # job_id from JSON/YAML
     title = Column(String, nullable=False)
     company = Column(String, nullable=False)
+    domain = Column(String, nullable=True)       # e.g., Tech, Management, Law
     required_skills = Column(JSON)       # stored as JSON list
     preferred_skills = Column(JSON)      # stored as JSON list
     eligible_degrees = Column(JSON)      # stored as JSON list
@@ -27,6 +28,8 @@ class CandidateProfile(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     filename = Column(String)
     raw_text = Column(Text)              # full extracted resume text
+    candidate_name = Column(String, nullable=True) # Candidate Name
+    domain = Column(String, nullable=True)         # Classified Domain (Tech, Management, etc)
     skills = Column(JSON)                # parsed skill list
     projects = Column(JSON)              # parsed project list
     internships = Column(Integer, default=0)

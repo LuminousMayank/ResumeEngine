@@ -8,6 +8,7 @@ class JobBase(BaseModel):
     job_id: str
     title: str
     company: str
+    domain: Optional[str] = None
     required_skills: List[str] = []
     preferred_skills: List[str] = []
     eligible_degrees: List[str] = []
@@ -27,6 +28,8 @@ class JobOut(JobBase):
 
 class CandidateProfileParsed(BaseModel):
     """Structured data extracted from a resume by the LLM."""
+    candidate_name: Optional[str] = None
+    domain: Optional[str] = None
     skills: List[str] = []
     projects: List[str] = []
     internships: int = 0

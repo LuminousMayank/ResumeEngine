@@ -2,168 +2,315 @@
     "jobs": [
         {
             "job_id": "J101",
-            "title": "AI Engineer Intern",
-            "company": "Caarya Technologies",
-            "required_skills": [
-                "Python",
-                "Machine Learning",
-                "TensorFlow"
-            ],
-            "preferred_skills": [
-                "NLP",
-                "LLMs",
-                "FastAPI"
-            ],
-            "eligible_degrees": [
-                "B.Tech CSE",
-                "B.Tech AI",
-                "M.Tech CSE"
-            ],
-            "eligible_years": [
-                2026,
-                2027
-            ],
-            "role_type": "internship",
-            "location": "Remote",
-            "role_description": "Work on building AI-powered tools for the Caarya platform. You will develop machine learning models, integrate LLM APIs, and build scalable data pipelines. Experience with NLP and transformer architectures is a plus."
+            "title": "AI Engineer",
+            "company": "Apex AI Systems",
+            "domain": "Tech",
+            "required_skills": ["Python", "Machine Learning", "TensorFlow", "Deep Learning"],
+            "preferred_skills": ["NLP", "PyTorch", "FastAPI"],
+            "eligible_degrees": ["B.Tech CSE", "B.Tech AI", "M.Tech CSE"],
+            "eligible_years": [2024, 2025, 2026],
+            "role_type": "fulltime",
+            "location": "San Francisco, CA",
+            "role_description": "We are seeking a talented AI Engineer to build large-scale models and productionize ML pipelines for our enterprise clients. Experience with transformers and generative AI is a strong plus."
         },
         {
             "job_id": "J102",
-            "title": "Frontend Developer Intern",
-            "company": "Caarya Technologies",
-            "required_skills": [
-                "HTML",
-                "CSS",
-                "JavaScript"
-            ],
-            "preferred_skills": [
-                "React",
-                "Next.js",
-                "TypeScript"
-            ],
-            "eligible_degrees": [
-                "B.Tech CSE",
-                "BCA",
-                "B.Sc CS"
-            ],
-            "eligible_years": [
-                2026,
-                2027
-            ],
-            "role_type": "internship",
-            "location": "Bengaluru",
-            "role_description": "Join the frontend team to build beautiful, responsive web interfaces. You will work with React and Next.js to create student-facing dashboards and internal tools."
+            "title": "Frontend Developer",
+            "company": "Nexus Web Solutions",
+            "domain": "Tech",
+            "required_skills": ["HTML", "CSS", "JavaScript", "React"],
+            "preferred_skills": ["Next.js", "TypeScript", "Redux"],
+            "eligible_degrees": ["B.Tech CSE", "BCA", "B.Sc CS", "Any"],
+            "eligible_years": [2025, 2026],
+            "role_type": "fulltime",
+            "location": "New York, NY",
+            "role_description": "Join our fast-paced creative team to build pixel-perfect, highly performant user interfaces for Fortune 500 brands."
         },
         {
             "job_id": "J103",
-            "title": "Backend Developer",
-            "company": "Caarya Technologies",
-            "required_skills": [
-                "Python",
-                "SQL",
-                "REST APIs"
-            ],
-            "preferred_skills": [
-                "FastAPI",
-                "PostgreSQL",
-                "Docker"
-            ],
-            "eligible_degrees": [
-                "B.Tech CSE",
-                "M.Tech CSE"
-            ],
-            "eligible_years": [
-                2025,
-                2026
-            ],
+            "title": "Backend Systems Engineer",
+            "company": "Stratos Cloud",
+            "domain": "Tech",
+            "required_skills": ["Python", "SQL", "REST APIs", "Docker"],
+            "preferred_skills": ["Go", "Kubernetes", "AWS"],
+            "eligible_degrees": ["B.Tech CSE", "M.Tech CSE"],
+            "eligible_years": [2024, 2025],
             "role_type": "fulltime",
-            "location": "Hyderabad",
-            "role_description": "Design and implement backend microservices for the Caarya platform. Responsibilities include API development, database design, and integration with third-party services."
+            "location": "Austin, TX / Remote",
+            "role_description": "Architect and scale distributed backend systems that handle millions of requests per second."
         },
         {
             "job_id": "J104",
             "title": "Data Analyst Intern",
-            "company": "Caarya Analytics",
-            "required_skills": [
-                "Python",
-                "SQL",
-                "Excel"
-            ],
-            "preferred_skills": [
-                "Pandas",
-                "Tableau",
-                "Power BI"
-            ],
-            "eligible_degrees": [
-                "B.Tech CSE",
-                "BBA",
-                "B.Com",
-                "B.Sc Statistics"
-            ],
-            "eligible_years": [
-                2026,
-                2027,
-                2028
-            ],
+            "company": "Quantix Analytics",
+            "domain": "Tech",
+            "required_skills": ["SQL", "Excel", "Data Visualization"],
+            "preferred_skills": ["Python", "Tableau", "Power BI"],
+            "eligible_degrees": ["B.Tech", "B.Com", "B.Sc Statistics", "BBA"],
+            "eligible_years": [2026, 2027],
             "role_type": "internship",
             "location": "Remote",
-            "role_description": "Analyze student engagement and placement data to derive actionable insights. Create dashboards and reports for the leadership team."
+            "role_description": "Assist our data science team in parsing raw consumer data and building executive dashboards to drive business strategy."
         },
         {
             "job_id": "J105",
-            "title": "Full Stack Developer",
-            "company": "Caarya Technologies",
-            "required_skills": [
-                "JavaScript",
-                "React",
-                "Node.js",
-                "SQL"
-            ],
-            "preferred_skills": [
-                "TypeScript",
-                "Next.js",
-                "MongoDB",
-                "AWS"
-            ],
-            "eligible_degrees": [
-                "B.Tech CSE",
-                "M.Tech CSE",
-                "MCA"
-            ],
-            "eligible_years": [
-                2025,
-                2026
-            ],
+            "title": "Associate Product Manager",
+            "company": "Meridian Logistics",
+            "domain": "Management",
+            "required_skills": ["Product Strategy", "Agile", "User Research"],
+            "preferred_skills": ["Jira", "Wireframing", "SQL for PMs"],
+            "eligible_degrees": ["MBA", "BBA", "B.Tech"],
+            "eligible_years": [2024, 2025],
             "role_type": "fulltime",
-            "location": "Bengaluru",
-            "role_description": "End-to-end product development across the Caarya platform. Build features from database to UI, participate in architecture decisions, and ship production-quality code."
+            "location": "Chicago, IL",
+            "role_description": "Work closely with engineering and design to define product roadmaps, manage sprints, and deliver logistics solutions."
         },
         {
             "job_id": "J106",
-            "title": "UI/UX Design Intern",
-            "company": "Caarya Design Studio",
-            "required_skills": [
-                "Figma",
-                "UI Design"
-            ],
-            "preferred_skills": [
-                "Prototyping",
-                "User Research",
-                "Adobe XD"
-            ],
-            "eligible_degrees": [
-                "B.Des",
-                "B.Tech CSE",
-                "BCA"
-            ],
-            "eligible_years": [
-                2026,
-                2027,
-                2028
-            ],
+            "title": "Management Consulting Analyst",
+            "company": "Vanguard Strategy Group",
+            "domain": "Management",
+            "required_skills": ["Market Research", "Financial Modeling", "Excel", "Client Communication"],
+            "preferred_skills": ["PowerPoint", "Case Analysis", "Project Management"],
+            "eligible_degrees": ["MBA", "BA Economics", "BBA"],
+            "eligible_years": [2025, 2026],
+            "role_type": "fulltime",
+            "location": "London, UK",
+            "role_description": "Join our consulting practice to solve complex business challenges for global enterprises. You will conduct market sizing, perform financial analysis, and build executive presentations."
+        },
+        {
+            "job_id": "J107",
+            "title": "Digital Marketing Intern",
+            "company": "Growth Engine Co.",
+            "domain": "Marketing",
+            "required_skills": ["Copywriting", "Social Media Management", "Content Creation"],
+            "preferred_skills": ["SEO", "Google Analytics", "Facebook Ads"],
+            "eligible_degrees": ["BA Marketing", "BBA", "BA Communications"],
+            "eligible_years": [2026, 2027],
             "role_type": "internship",
             "location": "Remote",
-            "role_description": "Design intuitive and beautiful interfaces for Caarya's products. Conduct user research, create wireframes and prototypes, and collaborate closely with the engineering team."
+            "role_description": "Support our marketing campaigns by writing copy, scheduling social posts, and tracking engagement metrics."
+        },
+        {
+            "job_id": "J108",
+            "title": "Corporate Strategy Associate",
+            "company": "OmniCorp Global",
+            "domain": "Management",
+            "required_skills": ["Strategic Planning", "Financial Analysis", "Executive Communication"],
+            "preferred_skills": ["M&A Knowledge", "Data Analysis", "Cross-functional Leadership"],
+            "eligible_degrees": ["MBA"],
+            "eligible_years": [2024, 2025],
+            "role_type": "fulltime",
+            "location": "New York, NY",
+            "role_description": "Partner with C-suite executives to evaluate merger opportunities, enter new markets, and drive internal operational efficiencies."
+        },
+        {
+            "job_id": "J109",
+            "title": "Legal Counsel Intern",
+            "company": "Harrison & Associates LLP",
+            "domain": "Law",
+            "required_skills": ["Legal Research", "Contract Review", "Writing"],
+            "preferred_skills": ["Corporate Law", "Intellectual Property", "Westlaw"],
+            "eligible_degrees": ["JD", "LLB", "LLM"],
+            "eligible_years": [2026, 2027],
+            "role_type": "internship",
+            "location": "Washington, D.C.",
+            "role_description": "Assist senior attorneys with pre-trial discovery, draft memorandums, and conduct detailed legal research on emerging corporate regulations."
+        },
+        {
+            "job_id": "J110",
+            "title": "Corporate Compliance Officer",
+            "company": "SecureBank Financial",
+            "domain": "Law",
+            "required_skills": ["Risk Assessment", "Regulatory Compliance", "Auditing"],
+            "preferred_skills": ["AML", "KYC", "GDPR"],
+            "eligible_degrees": ["JD", "BA Pre-Law", "MBA"],
+            "eligible_years": [2024, 2025],
+            "role_type": "fulltime",
+            "location": "Charlotte, NC",
+            "role_description": "Ensure the bank's operational practices adhere to federal regulations. You will conduct regular audits, write compliance reports, and train staff on risk protocols."
+        },
+        {
+            "job_id": "J111",
+            "title": "UX/UI Design Intern",
+            "company": "Creative Wave",
+            "domain": "Design",
+            "required_skills": ["Figma", "User Research", "Wireframing"],
+            "preferred_skills": ["Prototyping", "Adobe Creative Suite", "Interaction Design"],
+            "eligible_degrees": ["B.Des", "BA HCI", "Any"],
+            "eligible_years": [2026, 2027],
+            "role_type": "internship",
+            "location": "Remote",
+            "role_description": "Help design intuitive and engaging user journeys for consumer apps. Conduct user interviews, create low-fidelity wireframes, and refine visual designs."
+        },
+        {
+            "job_id": "J112",
+            "title": "Senior Marketing Manager",
+            "company": "Stratos Cloud",
+            "domain": "Marketing",
+            "required_skills": ["B2B Marketing", "Campaign Management", "Demand Generation"],
+            "preferred_skills": ["HubSpot", "Salesforce", "Team Leadership"],
+            "eligible_degrees": ["MBA", "BBA", "BA Marketing"],
+            "eligible_years": [2023, 2024],
+            "role_type": "fulltime",
+            "location": "Austin, TX",
+            "role_description": "Lead the demand generation strategy for our enterprise cloud products. You will oversee a 5-person team, manage multi-channel campaigns, and work closely with sales to drive pipeline."
+        },
+        {
+            "job_id": "J113",
+            "title": "DevOps Engineer",
+            "company": "DataFlow Networks",
+            "domain": "Tech",
+            "required_skills": ["Linux", "CI/CD", "AWS", "Bash"],
+            "preferred_skills": ["Terraform", "Kubernetes", "Ansible"],
+            "eligible_degrees": ["B.Tech CSE"],
+            "eligible_years": [2024, 2025],
+            "role_type": "fulltime",
+            "location": "Seattle, WA",
+            "role_description": "Maintain and enhance the infrastructure powering our core streaming services. Focus on high availability, disaster recovery, and developer productivity tools."
+        },
+        {
+            "job_id": "J114",
+            "title": "Financial Analyst Program",
+            "company": "Horizon Capital Partners",
+            "domain": "Finance",
+            "required_skills": ["Financial Modeling", "Accounting", "Excel"],
+            "preferred_skills": ["Bloomberg Terminal", "Valuation", "Equity Research"],
+            "eligible_degrees": ["BS Finance", "MBA"],
+            "eligible_years": [2025],
+            "role_type": "fulltime",
+            "location": "Boston, MA",
+            "role_description": "Two-year rotational program for recent graduates. You will cycle through Wealth Management, Investment Banking, and Corporate Finance divisions."
+        },
+        {
+            "job_id": "J115",
+            "title": "Human Resources Associate",
+            "company": "Apex AI Systems",
+            "domain": "Management",
+            "required_skills": ["Recruitment", "Employee Relations", "Communication"],
+            "preferred_skills": ["Workday", "Onboarding", "Talent Acquisition"],
+            "eligible_degrees": ["BA HR", "BBA", "BA Psychology"],
+            "eligible_years": [2025, 2026],
+            "role_type": "fulltime",
+            "location": "San Francisco, CA",
+            "role_description": "Manage the full-cycle recruitment process for technical roles, conduct new hire orientations, and help foster an inclusive company culture."
+        },
+        {
+            "job_id": "J116",
+            "title": "Full Stack Engineer",
+            "company": "Eventify Media",
+            "domain": "Tech",
+            "required_skills": ["JavaScript", "React", "Node.js", "MongoDB"],
+            "preferred_skills": ["GraphQL", "Express.js", "Redis"],
+            "eligible_degrees": ["B.Tech", "Any"],
+            "eligible_years": [2024, 2025],
+            "role_type": "fulltime",
+            "location": "Remote",
+            "role_description": "Build scalable web applications for the live events industry. You will touch all parts of the stack, from database schema design to responsive UI implementation."
+        },
+        {
+            "job_id": "J117",
+            "title": "Operations Manager",
+            "company": "Meridian Logistics",
+            "domain": "Management",
+            "required_skills": ["Supply Chain Management", "Process Optimization", "Leadership"],
+            "preferred_skills": ["Six Sigma", "Data Analysis", "Vendor Negotiation"],
+            "eligible_degrees": ["MBA", "BS Supply Chain"],
+            "eligible_years": [2023, 2024],
+            "role_type": "fulltime",
+            "location": "Dallas, TX",
+            "role_description": "Oversee daily warehouse and fulfillment operations. Identify bottlenecks, implement lean methodologies, and manage a team of 50+ staff."
+        },
+        {
+            "job_id": "J118",
+            "title": "Cybersecurity Analyst",
+            "company": "SecureBank Financial",
+            "domain": "Tech",
+            "required_skills": ["Network Security", "Threat Hunting", "Incident Response"],
+            "preferred_skills": ["CISSP", "Penetration Testing", "Python"],
+            "eligible_degrees": ["B.Tech CSE", "BS Cybersecurity", "B.Sc IT"],
+            "eligible_years": [2024, 2025],
+            "role_type": "fulltime",
+            "location": "Charlotte, NC",
+            "role_description": "Defend the bank's digital assets against sophisticated threats. Monitor SIEM alerts, conduct vulnerability assessments, and lead incident response efforts."
+        },
+        {
+            "job_id": "J119",
+            "title": "Paralegal",
+            "company": "Harrison & Associates LLP",
+            "domain": "Law",
+            "required_skills": ["Document Preparation", "Client Communication", "Organization"],
+            "preferred_skills": ["Case Management Software", "Litigation Support", "Drafting Pleading"],
+            "eligible_degrees": ["BA Pre-Law", "Paralegal Certificate", "Any BA"],
+            "eligible_years": [2024, 2025],
+            "role_type": "fulltime",
+            "location": "Washington, D.C.",
+            "role_description": "Support the litigation team by organizing case files, drafting correspondence, preparing exhibits for trial, and communicating with clients and court clerks."
+        },
+        {
+            "job_id": "J120",
+            "title": "Sales Development Representative (SDR)",
+            "company": "Growth Engine Co.",
+            "domain": "Marketing",
+            "required_skills": ["Cold Calling", "Email Outreach", "Communication"],
+            "preferred_skills": ["Salesforce", "B2B Sales", "HubSpot"],
+            "eligible_degrees": ["Any"],
+            "eligible_years": [2025, 2026],
+            "role_type": "fulltime",
+            "location": "Remote",
+            "role_description": "The spearhead of our sales motion. You will identify key prospects, conduct high-volume outbound outreach, and qualify leads to generate pipeline for Account Executives."
+        },
+        {
+            "job_id": "J121",
+            "title": "AI Engineer (GenAI & Agents)",
+            "company": "Zensar",
+            "domain": "Tech",
+            "required_skills": ["Python", "OpenAI API", "Gemini API", "LangGraph", "LangSmith"],
+            "preferred_skills": ["SQL", "Vector Databases", "PGVector", "CI/CD"],
+            "eligible_degrees": ["BS Computer Science", "MS Computer Science", "B.Tech CSE"],
+            "eligible_years": [2022, 2023, 2024],
+            "role_type": "fulltime",
+            "location": "Remote / Hybrid",
+            "role_description": "Design, develop, and deploy AI-powered applications leveraging our enterprise AI stack from concept to production. You will build intelligent agents and multi-agent systems using LangGraph and agent builder platforms."
+        },
+        {
+            "job_id": "J122",
+            "title": "GenAI Software Engineer",
+            "company": "Tech Innovators Inc",
+            "domain": "Tech",
+            "required_skills": ["Python", "OpenAI API", "Gemini API", "Claude API", "Prompt Engineering"],
+            "preferred_skills": ["Flask", "FastAPI", "Streamlit", "LangChain"],
+            "eligible_degrees": ["B.Tech CSE", "BS Computer Science", "Any"],
+            "eligible_years": [2023, 2024, 2025],
+            "role_type": "fulltime",
+            "location": "Remote",
+            "role_description": "Design, develop, and deploy GenAI-powered applications using multiple LLM APIs. Integrate AI models into backend systems using Python, implement prompt optimization, and output validation."
+        },
+        {
+            "job_id": "J123",
+            "title": "Full Stack AI Developer",
+            "company": "SocialPost.AI",
+            "domain": "Tech",
+            "required_skills": ["Python", "Django", "React", "Angular", "API Development"],
+            "preferred_skills": ["Lovable.dev", "Cursor", "AWS", "Azure"],
+            "eligible_degrees": ["B.Tech CSE", "BS Computer Science"],
+            "eligible_years": [2020, 2021, 2022],
+            "role_type": "fulltime",
+            "location": "Bengaluru (Hybrid)",
+            "role_description": "Use Lovable.dev and other AI coding tools to rapidly prototype workflows. Convert AI-generated prototypes into production-ready code integrated with our core Python/Django/React stack."
+        },
+        {
+            "job_id": "J124",
+            "title": "AI Innovation Lab Engineer",
+            "company": "BFSI Global",
+            "domain": "Tech",
+            "required_skills": ["Python", "LangChain", "LangGraph", "RAG Pipelines", "FastAPI"],
+            "preferred_skills": ["Node.js", "LLM Fine-Tuning", "Multi-Agent Systems"],
+            "eligible_degrees": ["M.Tech CSE", "B.Tech CSE", "BS Computer Science"],
+            "eligible_years": [2022, 2023, 2024],
+            "role_type": "fulltime",
+            "location": "Global",
+            "role_description": "Design, develop, and deploy end-to-end AI-driven applications using modern AI stacks for the BFSI sector. Build intelligent multi-agent systems and multi-step reasoning pipelines using LangChain and LangGraph."
         }
     ]
 }

@@ -36,14 +36,19 @@ def check_eligibility(profile: CandidateProfile, job: Job) -> str:
         if not any(d.lower() in profile_degree or profile_degree in d.lower() for d in eligible_degrees):
             issues.append("degree")
 
-    # Mandatory skills check
-    required = set(s.lower() for s in (job.required_skills or []))
-    candidate = set(s.lower() for s in (profile.skills or []))
-    missing_required = required - candidate
-    if len(missing_required) == len(required) and required:
-        issues.append("all_required_skills_missing")
-    elif missing_required:
-        issues.append("some_required_skills_missing")
+    # Semantic Mandatory Skills Check
+    # Instead of strict string intersection, we use the LLM score.
+    # We call evaluate_skills_with_llm which evaluates the whole profile against requirements.
+    # If score is very low (<30), likely missing core requirements.
+    skill_score = evaluate_skills_with_llm(
+        profile.skills or [],
+        job.required_skills or [],
+        job.preferred_skills or [],
+        job.role_type or ""
+    )
+    
+    if (job.required_skills or job.preferred_skills) and skill_score < 30.0:
+         issues.append("low_skill_match")
 
     # Role type vs internship count
     if job.role_type == "fulltime" and (profile.internships or 0) == 0:
@@ -51,7 +56,7 @@ def check_eligibility(profile: CandidateProfile, job: Job) -> str:
 
     if not issues:
         return "Eligible"
-    elif len(issues) <= 2 and "all_required_skills_missing" not in issues:
+    elif len(issues) <= 2 and "low_skill_match" not in issues:
         return "Partially Eligible"
     else:
         return "Not Eligible"
@@ -59,24 +64,72 @@ def check_eligibility(profile: CandidateProfile, job: Job) -> str:
 
 # ──────────────────────── Skill Overlap Score ────────────────────────
 
-def compute_skill_score(profile: CandidateProfile, job: Job) -> float:
+def evaluate_skills_with_llm(candidate_skills: list[str], required_skills: list[str], preferred_skills: list[str], role_type: str = "") -> float:
     """
-    Compute a 0-100 skill overlap score.
-    Weights required skills more than preferred skills.
+    Uses an LLM to evaluate the semantic overlap between candidate skills and job requirements.
+    Returns a score from 0-100.
     """
-    candidate_skills = set(s.lower() for s in (profile.skills or []))
-    required = set(s.lower() for s in (job.required_skills or []))
-    preferred = set(s.lower() for s in (job.preferred_skills or []))
+    if not required_skills and not preferred_skills:
+        return 50.0
 
-    if not required and not preferred:
-        return 50.0  # neutral if no skills specified
+    from openai import OpenAI
+    client = OpenAI(api_key=settings.openai_api_key)
 
-    required_match = len(required & candidate_skills) / len(required) if required else 1.0
-    preferred_match = len(preferred & candidate_skills) / len(preferred) if preferred else 0.5
+    prompt = f"""You are an expert technical and executive recruiter. 
+Evaluate how well the candidate's skills match the job's required and preferred skills.
+Consider semantic similarities and implicit hierarchical relationships.
+For example: 
+- If the job requires 'Machine Learning', and the candidate has 'TensorFlow', 'PyTorch', or 'Pandas', consider it a HIGH match because those imply ML knowledge.
+- If the job requires 'JavaScript', and the candidate has 'React', 'Node.js', or 'MongoDB', consider it a HIGH match.
+- If the job requires 'SQL', and the candidate has 'PostgreSQL' or 'MySQL', consider it a HIGH match.
 
-    # Required skills are worth 70%, preferred 30%
+Also, consider management, leadership, and domain-specific skills for appropriate roles. 
+
+Candidate Skills: {', '.join(candidate_skills)}
+Job Required Skills (weight: 70%): {', '.join(required_skills)}
+Job Preferred Skills (weight: 30%): {', '.join(preferred_skills)}
+Role Type contextual info: {role_type}
+
+Return ONLY a valid JSON object with a single key 'score' containing an integer from 0 to 100 representing the match percentage.
+"""
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}],
+            response_format={"type": "json_object"},
+            temperature=0.1
+        )
+        result = json.loads(response.choices[0].message.content)
+        return float(result.get("score", 0))
+    except Exception as e:
+        print(f"Error evaluating skills with LLM: {e}")
+        # Fallback to simple matching if API fails
+        return compute_skill_score_exact_match(candidate_skills, required_skills, preferred_skills)
+
+
+def compute_skill_score_exact_match(candidate_skills: list[str], required_skills: list[str], preferred_skills: list[str]) -> float:
+    c_set = set(s.lower() for s in candidate_skills)
+    r_set = set(s.lower() for s in required_skills)
+    p_set = set(s.lower() for s in preferred_skills)
+    
+    required_match = len(r_set & c_set) / len(r_set) if r_set else 1.0
+    preferred_match = len(p_set & c_set) / len(p_set) if p_set else 0.5
+
     score = (required_match * 70) + (preferred_match * 30)
     return round(min(score, 100.0), 2)
+
+
+def compute_skill_score(profile: CandidateProfile, job: Job) -> float:
+    """
+    Compute a 0-100 skill overlap score using semantic evaluation.
+    """
+    return evaluate_skills_with_llm(
+        profile.skills or [],
+        job.required_skills or [],
+        job.preferred_skills or [],
+        job.role_type or ""
+    )
 
 
 # ──────────────────────── Recruiter Signals Score ────────────────────────
@@ -100,11 +153,14 @@ def compute_signals_score(profile: CandidateProfile, job: Job) -> float:
     score += min(len(projects) * 10, 30)
 
     # Technical stack relevance (up to 25 points)
-    candidate_skills = set(s.lower() for s in (profile.skills or []))
-    all_job_skills = set(s.lower() for s in ((job.required_skills or []) + (job.preferred_skills or [])))
-    if all_job_skills:
-        overlap = len(candidate_skills & all_job_skills) / len(all_job_skills)
-        score += overlap * 25
+    # Reusing the LLM evaluation for a unified understanding of stack relevance
+    stack_relevance_score = evaluate_skills_with_llm(
+        profile.skills or [],
+        job.required_skills or [],
+        job.preferred_skills or [],
+        job.role_type or ""
+    )
+    score += (stack_relevance_score / 100.0) * 25
 
     # Base initiative signal (up to 15 points)
     if len(projects) >= 2:

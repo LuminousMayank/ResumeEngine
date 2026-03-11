@@ -3,7 +3,7 @@ from functools import lru_cache
 import os
 
 class Settings(BaseSettings):
-    gemini_api_key: str = ""
+    openai_api_key: str = ""
     database_url: str = "sqlite:///./caarya_job_fit.db"
     redis_url: str = "redis://localhost:6379/0"
 

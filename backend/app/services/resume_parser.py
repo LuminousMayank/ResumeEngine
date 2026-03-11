@@ -6,19 +6,24 @@ Extracts text from PDF/DOCX and uses the LLM to produce structured candidate dat
 import json
 import fitz  # PyMuPDF
 from docx import Document
-import google.generativeai as genai
+from openai import OpenAI
 
 from ..config import get_settings
 
 settings = get_settings()
 
-RESUME_PARSE_SYSTEM_PROMPT = """You are an expert technical recruiter matching service.
+RESUME_PARSE_SYSTEM_PROMPT = """You are an expert technical and executive recruiter matching service.
 Your sole task is to extract specific information from a candidate's resume text and format it into a strict JSON structure.
 Do not hallucinate skills. Do not include any surrounding conversational text, return ONLY valid JSON.
 
+CRITICAL INSTRUCTION: IMPLICIT SKILL EXPANSION
+If a candidate lists a specific framework, tool, or library (e.g., Pandas, Scikit-learn, React, MongoDB, Firebase), you MUST explicitly infer and append the foundational "parent" skills that it implies (e.g., Machine Learning, Frontend, JavaScript, Databases, NoSQL) into their skills list.
+
 Format Required:
 {
-  "skills": ["<list of all technical and soft skills identified>"],
+  "candidate_name": "<the full name of the candidate, e.g., 'John Doe'>",
+  "domain": "<the primary domain of the candidate's profile, e.g., 'Tech', 'Management', 'Law', 'Marketing', 'Finance', 'Design'>",
+  "skills": ["<list of all technical, management, and leadership skills identified, including inferred parent skills>"],
   "projects": ["<list of project names or short descriptions>"],
   "internships": <integer, count of distinct internships found>,
   "degree": "<the primary degree, e.g., 'B.Tech CSE'>",
@@ -53,20 +58,32 @@ def extract_text(filepath: str) -> str:
         raise ValueError(f"Unsupported file type: {filepath}")
 
 
+from app.services.skill_graph import get_expanded_skills
+
 def parse_resume_with_llm(raw_text: str) -> dict:
     """
     Send resume text to the LLM and get back structured candidate JSON.
     Returns a dict with keys: skills, projects, internships, degree, graduation_year
     """
-    genai.configure(api_key=settings.gemini_api_key)
-    model = genai.GenerativeModel("models/gemini-2.5-flash", system_instruction=RESUME_PARSE_SYSTEM_PROMPT)
+    client = OpenAI(api_key=settings.openai_api_key)
 
-    response = model.generate_content(
-        raw_text,
-        generation_config=genai.GenerationConfig(
-            response_mime_type="application/json",
-            temperature=0.1
-        )
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": RESUME_PARSE_SYSTEM_PROMPT},
+            {"role": "user", "content": raw_text}
+        ],
+        response_format={"type": "json_object"},
+        temperature=0.1
     )
 
-    return json.loads(response.text)
+    parsed_data = json.loads(response.choices[0].message.content)
+    
+    # Deterministic Skill Graph Expansion
+    extracted_skills = parsed_data.get("skills", [])
+    if isinstance(extracted_skills, list):
+        expanded_skills = get_expanded_skills(extracted_skills)
+        # Combine and deduplicate
+        parsed_data["skills"] = list(set(extracted_skills + expanded_skills))
+        
+    return parsed_data

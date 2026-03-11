@@ -6,6 +6,8 @@ import { useState, useRef, useCallback, useEffect } from "react";
 interface Profile {
   id: number;
   filename: string;
+  candidate_name?: string;
+  domain?: string;
   skills: string[];
   projects: string[];
   internships: number;
@@ -24,6 +26,7 @@ interface JobInfo {
   job_id: string;
   title: string;
   company: string;
+  domain: string;
   required_skills: string[];
   preferred_skills: string[];
   eligible_degrees: string[];
@@ -103,6 +106,7 @@ function JobCard({ match, index }: { match: MatchResult; index: number }) {
           <h3>{job.title}</h3>
           <div className="job-card-meta">
             <span className="meta-chip">🏢 {job.company}</span>
+            <span className="meta-chip" style={{background: 'var(--lime)'}}>📁 {job.domain}</span>
             <span className="meta-chip">📍 {job.location}</span>
             <span className="meta-chip">💼 {job.role_type}</span>
             <span className={`elig-chip ${getEligClass(match.eligibility_status)}`}>
@@ -183,9 +187,10 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [matches, setMatches] = useState<MatchResult[]>([]);
+  const [showAllDomains, setShowAllDomains] = useState(false);
 
   const handleUpload = useCallback(async (file: File) => {
-    setError(null); setUploading(true); setProfile(null); setMatches([]);
+    setError(null); setUploading(true); setProfile(null); setMatches([]); setShowAllDomains(false);
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -207,7 +212,10 @@ export default function Home() {
         const res = await fetch(`${API_BASE}/results/${profile.id}`);
         if (!res.ok) return;
         const data = await res.json();
-        if (data.matches?.length > 0) { setMatches(data.matches); setPolling(false); }
+        if (data.matches?.length > 0) { 
+            setMatches(data.matches); 
+            setPolling(false); 
+        }
       } catch { /* keep polling */ }
     }, 2000);
     return () => clearInterval(iv);
@@ -222,6 +230,14 @@ export default function Home() {
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]; if (file) handleUpload(file);
   };
+
+  // Filter and split matches
+  const filteredMatches = matches.filter(m => 
+      showAllDomains || !profile?.domain || m.job.domain?.toLowerCase() === profile.domain.toLowerCase()
+  );
+
+  const applicableMatches = filteredMatches.filter(m => m.eligibility_status !== "Not Eligible" && m.final_fit_score >= 50);
+  const notApplicableMatches = filteredMatches.filter(m => m.eligibility_status === "Not Eligible" || m.final_fit_score < 50);
 
   return (
     <>
@@ -274,6 +290,11 @@ export default function Home() {
           <section className="profile-section">
             <h2 className="section-title">Your Profile</h2>
             <div className="profile-card">
+              {profile.candidate_name && (
+                <h3 style={{fontFamily: 'var(--font-display)', fontSize: '2.5rem', marginBottom: '16px', letterSpacing: '1px'}}>
+                  {profile.candidate_name} <span style={{fontSize: '1.2rem', color: 'var(--hot-pink)'}}>[{profile.domain || 'General'}]</span>
+                </h3>
+              )}
               <div className="profile-grid">
                 <div className="profile-field">
                   <div className="profile-label">Degree</div>
@@ -285,29 +306,29 @@ export default function Home() {
                 </div>
                 <div className="profile-field">
                   <div className="profile-label">Internships</div>
-                  <div className="profile-value">{profile.internships}</div>
+                  <div className="profile-value">{profile.internships || 0}</div>
                 </div>
                 <div className="profile-field">
                   <div className="profile-label">Projects</div>
-                  <div className="profile-value">{profile.projects.length}</div>
+                  <div className="profile-value">{profile.projects?.length || 0}</div>
                 </div>
               </div>
 
               <div style={{ marginTop: 20 }}>
                 <div className="profile-label" style={{ marginBottom: 8 }}>Skills</div>
                 <div className="skill-tags">
-                  {profile.skills.map((s, i) => (
-                    <span className="skill-tag" key={i}>{s}</span>
+                  {(profile.skills || []).map((s, i) => (
+                    <span className="skill-tag green" key={i}>{s}</span>
                   ))}
                 </div>
               </div>
 
-              {profile.projects.length > 0 && (
+              {profile.projects && profile.projects.length > 0 && (
                 <div style={{ marginTop: 16 }}>
                   <div className="profile-label" style={{ marginBottom: 8 }}>Projects</div>
                   <div className="skill-tags">
                     {profile.projects.map((p, i) => (
-                      <span className="skill-tag purple" key={i}>{p}</span>
+                       <span className="skill-tag purple" key={i}>{p}</span>
                     ))}
                   </div>
                 </div>
@@ -327,15 +348,53 @@ export default function Home() {
         {/* ─── Results ─── */}
         {matches.length > 0 && (
           <section className="results-section">
-            <div className="results-header">
+            <div className="results-header" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '16px' }}>
               <h2 className="section-title" style={{ marginBottom: 0 }}>Your Matches</h2>
-              <div className="results-count">{matches.length} roles analyzed</div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'bold', fontSize: '0.8rem', textTransform: 'uppercase', cursor: 'pointer' }}>
+                  <input 
+                    type="checkbox" 
+                    checked={showAllDomains} 
+                    onChange={(e) => setShowAllDomains(e.target.checked)} 
+                    style={{ transform: 'scale(1.2)' }}
+                  />
+                  Show cross-domain jobs
+                </label>
+                <div className="results-count">{filteredMatches.length} roles matching your domain filter</div>
+              </div>
             </div>
-            <div className="job-cards">
-              {matches.map((m, i) => (
-                <JobCard key={m.job.job_id} match={m} index={i} />
-              ))}
-            </div>
+
+            {applicableMatches.length > 0 && (
+              <div style={{ marginBottom: '40px' }}>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', letterSpacing: '1px', marginBottom: '16px', color: 'var(--black)' }}>
+                  ✅ Applicable For You ({applicableMatches.length})
+                </h3>
+                <div className="job-cards">
+                  {applicableMatches.map((m, i) => (
+                    <JobCard key={m.job.job_id} match={m} index={i} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {notApplicableMatches.length > 0 && (
+              <div>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', letterSpacing: '1px', marginBottom: '16px', color: 'var(--black)', opacity: 0.7 }}>
+                  ⛔ Not Applicable ({notApplicableMatches.length})
+                </h3>
+                <div className="job-cards" style={{ opacity: 0.85 }}>
+                  {notApplicableMatches.map((m, i) => (
+                    <JobCard key={m.job.job_id} match={m} index={i} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {filteredMatches.length === 0 && (
+              <div className="error-banner" style={{ background: 'var(--black)' }}>
+                No jobs found matching your domain. Try enabling "Show cross-domain jobs".
+              </div>
+            )}
           </section>
         )}
 

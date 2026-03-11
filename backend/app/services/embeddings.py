@@ -3,7 +3,7 @@ Embedding utility — wraps OpenAI embeddings API.
 """
 
 import numpy as np
-import google.generativeai as genai
+from openai import OpenAI
 from ..config import get_settings
 
 settings = get_settings()
@@ -11,20 +11,18 @@ settings = get_settings()
 
 def get_embeddings(texts: list[str]) -> np.ndarray:
     """
-    Generate embeddings for a list of texts using Gemini's embedding model.
+    Generate embeddings for a list of texts using OpenAI's embedding model.
     Returns numpy array of shape (len(texts), embedding_dim).
     """
-    genai.configure(api_key=settings.gemini_api_key)
+    client = OpenAI(api_key=settings.openai_api_key)
 
-    embeddings = []
-    # Gemini's embed_content can take a list of strings natively
-    result = genai.embed_content(
-        model="models/gemini-embedding-001",
-        content=texts,
-        task_type="retrieval_document",
+    # OpenAI's embeddings.create can take a list of strings natively
+    response = client.embeddings.create(
+        model="text-embedding-3-small",
+        input=texts
     )
     
-    # If the response contains a list of embeddings
-    embeddings = result['embedding']
+    # Extract embeddings from the response
+    embeddings = [item.embedding for item in response.data]
     
     return np.array(embeddings, dtype=np.float32)

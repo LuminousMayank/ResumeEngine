@@ -264,7 +264,7 @@ body {
 }
 
 .profile-card::before {
-  content: '★ YOUR PROFILE ★';
+  content: '★ CANDIDATE ★';
   position: absolute;
   top: 8px;
   right: 16px;
@@ -330,6 +330,11 @@ body {
 .skill-tag.purple {
   background: var(--purple);
   color: white;
+}
+
+.skill-tag.green {
+  background: var(--lime);
+  color: var(--black);
 }
 
 /* ─── Loading ─── */

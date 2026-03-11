@@ -4,7 +4,7 @@ Uses a FAANG HR Manager persona to generate structured feedback for each job mat
 """
 
 import json
-import google.generativeai as genai
+from openai import OpenAI
 from ..config import get_settings
 
 settings = get_settings()
@@ -30,20 +30,21 @@ def generate_hr_explanation(candidate_profile: dict, job_data: dict) -> dict:
     Call the LLM with the HR persona prompt.
     Returns a dict with keys: why_fits, why_may_not_be_shortlisted, missing_skills, improvement_suggestions
     """
-    genai.configure(api_key=settings.gemini_api_key)
-    model = genai.GenerativeModel("models/gemini-2.5-flash", system_instruction=HR_EXPLANATION_SYSTEM_PROMPT)
+    client = OpenAI(api_key=settings.openai_api_key)
 
     user_message = (
         f"Candidate Profile:\n{json.dumps(candidate_profile, indent=2)}\n\n"
         f"Job Listing:\n{json.dumps(job_data, indent=2)}"
     )
 
-    response = model.generate_content(
-        user_message,
-        generation_config=genai.GenerationConfig(
-            response_mime_type="application/json",
-            temperature=0.3
-        )
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": HR_EXPLANATION_SYSTEM_PROMPT},
+            {"role": "user", "content": user_message}
+        ],
+        response_format={"type": "json_object"},
+        temperature=0.3
     )
 
-    return json.loads(response.text)
+    return json.loads(response.choices[0].message.content)
